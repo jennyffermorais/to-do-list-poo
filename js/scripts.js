@@ -18,6 +18,40 @@ class Todo {
 
       // adicionar a lista
       list.appendChild(template);
+
+      // adiciona eventos às tasks
+      this.addEvents();
+   }
+
+   removeTask(task) {
+      //achar o elemento pai
+      let parentEl = task.parentElement;
+
+      // remover da lista
+      parentEl.remove();
+   }
+
+   completeTask(task) {
+      // adicionar a classe de done
+      task.classList.add('done');
+   }
+
+   addEvents() {
+      let removeBtns = document.querySelectorAll('.fa-trash');
+      let removeBtn = removeBtns[removeBtns.length - 1]; // pega o ultimo botao
+
+      let doneBtns = document.querySelectorAll('.fa-check');
+      let doneBtn = doneBtns[doneBtns.length - 1];
+
+      // adicionar evento de remover
+      removeBtn.addEventListener('click', () => {
+         this.removeTask(removeBtn);
+      });
+
+      // adicionar evento de marcar como feito
+      doneBtn.addEventListener('click', () => {
+         this.completeTask(doneBtn);
+      });
    }
 }
 
@@ -28,12 +62,12 @@ let addBtn = document.querySelector('#add');
 
 addBtn.addEventListener('click', function (e) {
    e.preventDefault();
-   let taskText = document.querySelector('#task').value;
+   let taskText = document.querySelector('#task');
 
-   if (taskText != '') {
-      todo.addTask(taskText);
+   if (taskText.value != '') {
+      todo.addTask(taskText.value);
    }
 
    // limpa campo de texto
-   document.querySelector('#task').value = '';
+   taskText.value = '';
 });
