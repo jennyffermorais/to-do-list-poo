@@ -21,6 +21,8 @@ class Todo {
 
       // adiciona eventos às tasks
       this.addEvents();
+
+      this.checkTasks('add');
    }
 
    removeTask(task) {
@@ -29,6 +31,8 @@ class Todo {
 
       // remover da lista
       parentEl.remove();
+
+      this.checkTasks('remove');
    }
 
    completeTask(task) {
@@ -52,6 +56,24 @@ class Todo {
       doneBtn.addEventListener('click', () => {
          this.completeTask(doneBtn);
       });
+   }
+
+   checkTasks(command) {
+      let msg = document.querySelector('#empty-tasks');
+
+      // lógica de adicionar ou remover tasks
+      if (command === 'add') {
+         this.totalTasks++;
+      } else if (command === 'remove') {
+         this.totalTasks--;
+      }
+
+      // verificar se existem tasks
+      if (this.totalTasks == 1) {
+         msg.classList.remove('hide');
+      } else {
+         msg.classList.add('hide');
+      }
    }
 }
 
